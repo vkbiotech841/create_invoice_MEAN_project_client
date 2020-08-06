@@ -1,4 +1,4 @@
-import { Invoice } from './../models/invoice';
+import { Invoice, InvoicePaginationRsp } from './../models/invoice';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -14,8 +14,12 @@ export class InvoiceService {
     private httpClient: HttpClient
   ) { }
 
-  getInvoices(): Observable<Invoice[]> {
-    return this.httpClient.get<Invoice[]>(`${BASE_URL}/invoices`);
+  getInvoices({ page, perPage, sortField, sortDirection }): Observable<InvoicePaginationRsp> {
+    let queryString = `${BASE_URL}/invoices?page=${page + 1}&perPage=${perPage}`
+    if (sortField && sortDirection) {
+      queryString = `${queryString}&sortField=${sortField}&sortDirection=${sortDirection}`;
+    };
+    return this.httpClient.get<InvoicePaginationRsp>(queryString);
   };
 
   createInvoice(body: Invoice): Observable<Invoice> {
