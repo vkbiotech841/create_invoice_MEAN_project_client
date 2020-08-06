@@ -1,6 +1,6 @@
-import { Component, OnInit, NgZone, ViewChild, HostListener, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, ElementRef } from '@angular/core';
 
-const MAX_WIDTH_BREAKPOINT = 720;
+
 
 @Component({
   selector: 'app-side-nav',
