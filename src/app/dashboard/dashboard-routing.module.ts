@@ -13,7 +13,7 @@ const routes: Routes = [
       { path: 'invoices/new', component: InvoiceFormComponent },
       { path: 'invoices/:id', component: InvoiceFormComponent },
       { path: 'clients', component: ClientListingComponent },
-      { path: '**', redirectTo: 'invoices' },
+      // { path: '**', redirectTo: 'invoices' },
     ]
   }
 ];
