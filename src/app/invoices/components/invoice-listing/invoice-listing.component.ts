@@ -1,6 +1,6 @@
 
 
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { Invoice, InvoicePaginationRsp } from './../../models/invoice';
 import { InvoiceService } from './../../services/invoice.service';
 import { Router } from '@angular/router';
@@ -40,6 +40,7 @@ export class InvoiceListingComponent implements OnInit, AfterViewInit {
     private invoiceService: InvoiceService,
     private router: Router,
     private snackBar: MatSnackBar,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -51,6 +52,11 @@ export class InvoiceListingComponent implements OnInit, AfterViewInit {
     this.populateInvoices();
     this.invoiceListPagination();
     this.invoiceSorting();
+  }
+
+  ngAfterViewChecked() {
+    //your code to update the model
+    this.cdr.detectChanges();
   }
 
 
@@ -85,7 +91,8 @@ export class InvoiceListingComponent implements OnInit, AfterViewInit {
       page: this.paginator.pageIndex,
       perPage: this.paginator.pageSize,
       sortField: this.sort.active,
-      sortDirection: this.sort.direction
+      sortDirection: this.sort.direction,
+      filter: ''
     })
       .subscribe(data => {
         this.dataSource = data.docs;
@@ -123,7 +130,8 @@ export class InvoiceListingComponent implements OnInit, AfterViewInit {
         page: this.paginator.pageIndex,
         perPage: this.paginator.pageSize,
         sortField: this.sort.active,
-        sortDirection: this.sort.direction
+        sortDirection: this.sort.direction,
+        filter: ''
       }).subscribe(data => {
         console.log('pagination data', data)
         this.dataSource = data.docs;
@@ -146,7 +154,8 @@ export class InvoiceListingComponent implements OnInit, AfterViewInit {
         page: this.paginator.pageIndex,
         perPage: this.paginator.pageSize,
         sortField: this.sort.active,
-        sortDirection: this.sort.direction
+        sortDirection: this.sort.direction,
+        filter: ''
       })
         .subscribe(data => {
           console.log('sorted data', data);
@@ -159,6 +168,26 @@ export class InvoiceListingComponent implements OnInit, AfterViewInit {
           console.error(err);
         })
     });
-  }
+  };
+
+  filterText(filterValue: string) {
+    this.isResultsLoading = true;
+    filterValue = filterValue.trim()
+    this.paginator.pageIndex = 0;
+    this.invoiceService.getInvoices({
+      page: this.paginator.pageIndex,
+      perPage: this.paginator.pageSize,
+      sortField: this.sort.active,
+      sortDirection: this.sort.direction,
+      filter: filterValue
+    })
+      .subscribe(data => {
+        this.dataSource = data.docs;
+        this.resultsLength = data.total;
+        this.isResultsLoading = false;
+      }, err => {
+        this.errorSnackBar(err, 'Failed to filter invoice')
+      })
+  };
 
 }

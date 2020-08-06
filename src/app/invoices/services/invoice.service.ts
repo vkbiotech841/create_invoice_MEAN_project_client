@@ -14,11 +14,14 @@ export class InvoiceService {
     private httpClient: HttpClient
   ) { }
 
-  getInvoices({ page, perPage, sortField, sortDirection }): Observable<InvoicePaginationRsp> {
+  getInvoices({ page, perPage, sortField, sortDirection, filter }): Observable<InvoicePaginationRsp> {
     let queryString = `${BASE_URL}/invoices?page=${page + 1}&perPage=${perPage}`
     if (sortField && sortDirection) {
       queryString = `${queryString}&sortField=${sortField}&sortDirection=${sortDirection}`;
     };
+    if (filter) {
+      queryString = `${queryString}&filter=${filter}`
+    }
     return this.httpClient.get<InvoicePaginationRsp>(queryString);
   };
 
