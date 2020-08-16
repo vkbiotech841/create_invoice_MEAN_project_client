@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './shared/material.module';
+// import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 
 
 @NgModule({
@@ -15,8 +16,8 @@ import { MaterialModule } from './shared/material.module';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule
-
+    MaterialModule,
+    // ShareButtonsModule,
 
   ],
   providers: [],

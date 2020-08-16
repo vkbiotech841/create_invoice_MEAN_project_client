@@ -8,6 +8,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { InvoiceListingComponent } from './components/invoice-listing/invoice-listing.component';
 import { InvoiceFormComponent } from './components/invoice-form/invoice-form.component';
 
+import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
+import { ShareIconsModule } from 'ngx-sharebuttons/icons';
+
 
 @NgModule({
   declarations: [InvoiceListingComponent, InvoiceFormComponent,],
@@ -17,6 +20,8 @@ import { InvoiceFormComponent } from './components/invoice-form/invoice-form.com
     ReactiveFormsModule,
     MaterialModule,
     HttpClientModule,
+    ShareButtonsModule,
+    ShareIconsModule
 
 
   ],

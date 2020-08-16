@@ -123,5 +123,8 @@
       }
     }
   },
-  "defaultProject": "invoice-generator"
+  "defaultProject": "invoice-generator",
+  "cli": {
+    "analytics": false
+  }
 }
